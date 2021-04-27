@@ -50,16 +50,16 @@ def Undo_Subject() :
 
     else: tkinter.messagebox.showwarning("ERROR!" ,"You must add a subject before you undo!")
 
-def calculate_gpa() :
+def calculate() :
     if sum(unitsList) != 0 :
         gpa = float(sum(all_List)/sum(unitsList))
-        print ("Grade Points:")
+        print ("Honor Points:")
         print (sum(all_List))
         print("")
         print ("Units:")
         print (sum(unitsList))
         print("")
-        print ("General Point Average:")
+        print ("General Point Average: (Honor Points / Units)")
         print (sum(all_List)/sum(unitsList))
         grade = StringVar()
         f_color = StringVar()
@@ -77,17 +77,18 @@ def calculate_gpa() :
             grade = "Not Qualified"
             f_color = "red"
             let = ":("
+            
         else :
             grade = ""
             let = ""
-
+           
         general_Display.configure(text = round(gpa ,3))
         Grade_Display.configure(text = grade ,fg = f_color)
         alpha.configure(text = let)
 
     else :tkinter.messagebox.showwarning("ERROR!" ,"You must add a subject before you calculate!")
 
-def New_Input():
+def Reset_Input():
     global check ,subject_number
     subject_number = 0
     Number_Options.grid(row = 0 ,column = 1)
@@ -101,21 +102,28 @@ def New_Input():
     gradeList.clear()
     unitsList.clear()
     all_List.clear()
+ 
 
 def About():
     root.maxsize(width = 280 ,height = 400)
-    tkinter.messagebox.showinfo("" ,"This General Point Average (GPA) Calculator is a partnership project of the Benilde Central Student Government, and the Computer Business Association.")
-    tkinter.messagebox.showinfo("" ,"Created by: Lance Salen")
+    lines = ['Created by:', '', 'Lance Salen', '12007621', 'BSBA-BIA', 'Computer Business Association']
+    tkinter.messagebox.showinfo("About" ,"This General Point Average (GPA) Calculator is a partnership project of the Benilde Central Student Government, and the Computer Business Association.")
+    tkinter.messagebox.showinfo("About" ,"\n".join(lines))
     root.maxsize(width = 280 ,height = 270)
 
 def Help():
     root.maxsize(width = 280 ,height = 400)
-    tkinter.messagebox.showinfo("" ,"To add a subject, choose the equivalent grade in the dropdown list.")
-    tkinter.messagebox.showinfo("" ,"Choose the number of units of your subject, then click the Add Subject button.")
-    tkinter.messagebox.showinfo("" ,"After adding all your subjects, click the Calculate button to continue.")
-    tkinter.messagebox.showinfo("" ,"If you had a wrong input of your subject, you can click the Undo Subject button.")
-    tkinter.messagebox.showinfo("" ,"If you want to compute a new set of subjects, just click the New Input button and input your new subjects.")
-    tkinter.messagebox.showinfo("" ,"Thank you! If you have any concerns, email me at lancebert.salen@benilde.edu. ph.")
+    tkinter.messagebox.showinfo("Help" ,"To add a subject, choose the equivalent grade in the dropdown list.")
+    tkinter.messagebox.showinfo("Help" ,"Choose the number of units of your subject, then click the Add Subject button.")
+    tkinter.messagebox.showinfo("Help" ,"After adding all your subjects, click the Calculate button to continue.")
+    tkinter.messagebox.showinfo("Help" ,"If you had a wrong input of your subject, you can click the Undo Subject button.")
+    tkinter.messagebox.showinfo("Help" ,"If you want to compute a new set of subjects, just click the Reset Input button and input your new subjects.")
+    tkinter.messagebox.showinfo("Help" ,"CSBLIFE, CSBGRAD, NSTP-01, and NSTP-02 are not included.")
+    tkinter.messagebox.showinfo("Help" ,"In order to qualify for the Dean's List, for First Honors, your minimum computed GPA must be (3.5). Then for Second Honors, your minimum computed GPA must be (3.0).")
+    tkinter.messagebox.showinfo("Help" ,"For the minimum added subject grades, for First Honors, your minimum added subject grade must be (3.0). Then for Second Honors, your minimum added subject grade must be (2.5).")
+    tkinter.messagebox.showinfo("Help" ,"You must not have a failing grade (R), no (W) for the term, must have a minimum of 12 units, no deferred grade for the term, and no major offense or academic dishonesty.")
+    tkinter.messagebox.showinfo("Help" ,"If you inputted one or two subjects that is (2.0) or below, regardless the result, you are still not qualified for the Dean's List.")
+    tkinter.messagebox.showinfo("Help" ,"Thank you! If you have any concerns, please email us at computerbusinessassociation @benilde.edu.ph.")
     root.maxsize(width = 280 ,height = 270)
 
 
@@ -135,10 +143,10 @@ all_List = []
 Number_Points = {'4':4.0,'3.5':3.5,'3':3.0,'2.5':2.5,'2':2.0,'1.5':1.5,'1':1.0,'R':0.0,}
 
 
-Top_Frame = Frame(root)
-Top_Frame.pack(side = TOP)
+high_Frame = Frame(root)
+high_Frame.pack(side = TOP)
 
-subject_grade_units = LabelFrame(Top_Frame ,relief = FLAT)
+subject_grade_units = LabelFrame(high_Frame ,relief = FLAT)
 subject_grade_units.pack(side = TOP )
 
 subject_grade_LabelFrame = LabelFrame(subject_grade_units ,text = "Subject Grade")
@@ -158,12 +166,13 @@ units_RadioBtn = Radiobutton(units_lblFrame ,text = "3" ,variable = units ,value
 units_RadioBtn.pack(side = RIGHT)
 units_RadioBtn.select()
 
-gpa_grade_frame = Frame(Top_Frame ,relief = FLAT)
+gpa_grade_frame = Frame(high_Frame ,relief = FLAT)
 gpa_grade_frame.pack(side = BOTTOM ,pady = 5)
 
 Button(gpa_grade_frame ,text = "Add Subject" ,command = Add_Subject ,bg = "#e6e6e6").grid(row = 0 ,pady = 5) 
 
 Button(gpa_grade_frame ,text = "Undo Subject" ,command = Undo_Subject ,bg = "#e6e6e6").grid(row = 1) 
+
 Label(gpa_grade_frame ,text = "Number of Subjects:").grid(row = 0 ,column = 1 ,pady = 2)
 subject_number_Display = Label(gpa_grade_frame ,relief = RIDGE ,width = 2) 
 subject_number_Display.grid(row = 0, column = 2 ,pady = 2)
@@ -172,7 +181,7 @@ Label(gpa_grade_frame ,text = "Number of Units:").grid(row = 1 ,column = 1 ,pady
 units_number_Display = Label(gpa_grade_frame ,relief = RIDGE ,width = 2) 
 units_number_Display.grid(row = 1 ,column = 2 ,pady = 2)
 
-Button(gpa_grade_frame ,text = "Calculate" ,width = 15 ,command = calculate_gpa ,bg = "#e6e6e6").grid(row = 2 ,columnspan = 3 ,pady = 5)
+Button(gpa_grade_frame ,text = "Calculate" ,width = 15 ,command = calculate ,bg = "#e6e6e6").grid(row = 2 ,columnspan = 3 ,pady = 5)
 Label(gpa_grade_frame ,text = "General Point Average (GPA):").grid(row = 3)
 
 general_Display = Label(gpa_grade_frame ,relief = RIDGE ,width = 15) 
@@ -185,17 +194,17 @@ Grade_Display.grid(row = 4 ,column = 1)
 alpha = Label(gpa_grade_frame ,relief = RIDGE ,width = 2)
 alpha.grid(row = 3 ,rowspan = 2 ,column = 3)
 
-Bottom_Frame = Frame(root)
-Bottom_Frame.pack(side = BOTTOM)
+low_Frame = Frame(root)
+low_Frame.pack(side = BOTTOM)
 
-buttons_LabelFrame = LabelFrame(Bottom_Frame ,relief = FLAT)
-buttons_LabelFrame.pack(side = TOP ,pady = 5)
+below_buttons_LabelFrame = LabelFrame(low_Frame ,relief = FLAT)
+below_buttons_LabelFrame.pack(side = TOP ,pady = 5)
 
-Button(buttons_LabelFrame ,text = " New Input  " ,command = New_Input ,bg = "#e6e6e6").pack(side =LEFT ,padx = 15) 
+Button(below_buttons_LabelFrame ,text = " Reset Input  " ,command = Reset_Input ,bg = "#e6e6e6").pack(side =LEFT ,padx = 15) 
 root.minsize(width= 280 ,height = 270)
 
-Button(buttons_LabelFrame ,text = "About" ,command = About ,bg = "#e6e6e6").pack(side = RIGHT ,padx = 15)
+Button(below_buttons_LabelFrame ,text = "About" ,command = About ,bg = "#e6e6e6").pack(side = RIGHT ,padx = 15)
 
-Button(buttons_LabelFrame ,text = "Help" ,command = Help ,bg = "#e6e6e6").pack(side = RIGHT ,padx = 15)
+Button(below_buttons_LabelFrame ,text = "Help" ,command = Help ,bg = "#e6e6e6").pack(side = RIGHT ,padx = 15)
 
 root.mainloop()
