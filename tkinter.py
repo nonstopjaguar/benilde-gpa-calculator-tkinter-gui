@@ -52,7 +52,7 @@ def Undo_Subject() :
 
 def calculate() :
     if sum(unitsList) != 0 :
-        gpa = float(sum(all_List)/sum(unitsList))
+        gpa = float(sum(all_List)/sum(unitsList)) 
         print ("Honor Points:")
         print (sum(all_List))
         print("")
@@ -66,12 +66,12 @@ def calculate() :
         let = StringVar()
         
         if gpa >= 3.5 and gpa <= 4.0 :
-            grade = "1st Honors!"
+            grade = "First Honors!"
             f_color = "green"
             let = ":)"
         elif gpa >= 3.0 and gpa < 3.5 :
-            grade = "2nd Honors!"
-            f_color = "green"
+            grade = "Second Honors!"
+            f_color = "blue"
             let = ":)"
         elif gpa >= 0.0 and gpa < 3.0 :
             grade = "Not Qualified"
@@ -81,7 +81,7 @@ def calculate() :
         else :
             grade = ""
             let = ""
-           
+
         general_Display.configure(text = round(gpa ,3))
         Grade_Display.configure(text = grade ,fg = f_color)
         alpha.configure(text = let)
@@ -117,15 +117,20 @@ def Help():
     tkinter.messagebox.showinfo("Help" ,"Choose the number of units of your subject, then click the Add Subject button.")
     tkinter.messagebox.showinfo("Help" ,"After adding all your subjects, click the Calculate button to continue.")
     tkinter.messagebox.showinfo("Help" ,"If you had a wrong input of your subject, you can click the Undo Subject button.")
-    tkinter.messagebox.showinfo("Help" ,"If you want to compute a new set of subjects, just click the Reset Input button and input your new subjects.")
+    tkinter.messagebox.showinfo("Help" ,"If you want to compute a new set of subjects, just click the Reset Input button and add your new subjects.")
     tkinter.messagebox.showinfo("Help" ,"CSBLIFE, CSBGRAD, NSTP-01, and NSTP-02 are not included.")
-    tkinter.messagebox.showinfo("Help" ,"In order to qualify for the Dean's List, for First Honors, your minimum computed GPA must be (3.5). Then for Second Honors, your minimum computed GPA must be (3.0).")
-    tkinter.messagebox.showinfo("Help" ,"For the minimum added subject grades, for First Honors, your minimum added subject grade must be (3.0). Then for Second Honors, your minimum added subject grade must be (2.5).")
-    tkinter.messagebox.showinfo("Help" ,"You must not have a failing grade (R), no (W) for the term, must have a minimum of 12 units, no deferred grade for the term, and no major offense or academic dishonesty.")
-    tkinter.messagebox.showinfo("Help" ,"If you inputted one or two subjects that is (2.0) or below, regardless the result, you are still not qualified for the Dean's List.")
     tkinter.messagebox.showinfo("Help" ,"Thank you! If you have any concerns, please email us at computerbusinessassociation @benilde.edu.ph.")
     root.maxsize(width = 280 ,height = 270)
 
+def dl_requirements():
+    root.maxsize(width = 280 ,height = 400)
+    tkinter.messagebox.showinfo("Dean's List Requirements" ,"In order to qualify for the Dean's List, for First Honors, your minimum computed GPA must be (3.5). Then for Second Honors, your minimum computed GPA must be (3.0).")
+    tkinter.messagebox.showinfo("Dean's List Requirements" ,"For the minimum added subject grades, for First Honors, your minimum added subject grade must be (3.0). Then for Second Honors, your minimum added subject grade must be (2.5).")
+    tkinter.messagebox.showinfo("Dean's List Requirements" ,"You must not have a failing grade (R), no (W) for the term, must have a minimum of 12 units, no deferred grade for the term, and no major offense or academic dishonesty.")
+    tkinter.messagebox.showinfo("Dean's List Requirements" ,"If you inputted one or two subjects that is (2.0) or below, regardless the result, you are still not qualified for the Dean's List.")
+    lines = ['General Point Average (GPA) Variations:', '', '4.0-3.5 = First Honors','', '3.4-3.0 = Second Honors', '', '2.9-0.0 = Not Qualified']
+    tkinter.messagebox.showinfo("Dean's List Requirements" ,"\n".join(lines))
+    root.maxsize(width = 280 ,height = 270)
 
 
 root = Tk()
@@ -152,7 +157,7 @@ subject_grade_units.pack(side = TOP )
 subject_grade_LabelFrame = LabelFrame(subject_grade_units ,text = "Subject Grade")
 subject_grade_LabelFrame.pack(side = LEFT ,padx = 5)
 
-units_lblFrame = LabelFrame(subject_grade_units ,text = "Number of Units")
+units_lblFrame = LabelFrame(subject_grade_units ,text = "      Number of Units      ")
 units_lblFrame.pack(side = RIGHT ,padx = 5)
 
 Label(subject_grade_LabelFrame ,text = "List:").grid(row =0)
@@ -161,8 +166,10 @@ Label(subject_grade_LabelFrame ,text = "List:").grid(row =0)
 Number_Options = OptionMenu(subject_grade_LabelFrame ,number ,"4" ,"3.5" ,"3" ,"2.5" ,"2" ,"1.5" ,"1" ,"R")
 Number_Options.grid(row = 0 ,column = 1)
 
+Radiobutton(units_lblFrame ,text = "1" ,variable = units ,value = 1).pack(side = LEFT)
 Radiobutton(units_lblFrame ,text = "2" ,variable = units ,value = 2).pack(side = LEFT)
 units_RadioBtn = Radiobutton(units_lblFrame ,text = "3" ,variable = units ,value = 3) 
+Radiobutton(units_lblFrame ,text = "6" ,variable = units ,value = 6).pack(side = RIGHT)
 units_RadioBtn.pack(side = RIGHT)
 units_RadioBtn.select()
 
@@ -205,6 +212,8 @@ root.minsize(width= 280 ,height = 270)
 
 Button(below_buttons_LabelFrame ,text = "About" ,command = About ,bg = "#e6e6e6").pack(side = RIGHT ,padx = 15)
 
-Button(below_buttons_LabelFrame ,text = "Help" ,command = Help ,bg = "#e6e6e6").pack(side = RIGHT ,padx = 15)
+Button(below_buttons_LabelFrame ,text = "Help" ,command = Help ,bg = "#e6e6e6").pack(side = LEFT ,padx = 15)
+
+Button(below_buttons_LabelFrame ,text = "Dean's List Requirements" ,command = dl_requirements ,bg = "#e6e6e6").pack(side = RIGHT ,padx = 15)
 
 root.mainloop()
