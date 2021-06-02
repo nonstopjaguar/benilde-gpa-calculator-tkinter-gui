@@ -1,8 +1,7 @@
 from tkinter import * 
 import tkinter.messagebox
 
-
-check = "benilde"
+check = "code"
 def options():
     global check
     if subject_grade.get() == 1 :
@@ -24,7 +23,7 @@ def Add_Subject():
 
             
 
-    elif check == "benilde" :
+    elif check == "code" :
         subject_number += 1
         subject_number_Display.configure(text = subject_number)
         unitsList.append(units.get())
@@ -53,7 +52,7 @@ def Undo_Subject() :
 def calculate() :
     if sum(unitsList) != 0 :
         gpa = float(sum(all_List)/sum(unitsList)) 
-        print ("Honor Points:")
+        print ("Honor Points: (Subject Grade * Units)(Sum of Subject Grades * Units)")
         print (sum(all_List))
         print("")
         print ("Units:")
@@ -92,7 +91,7 @@ def Reset_Input():
     global check ,subject_number
     subject_number = 0
     Number_Options.grid(row = 0 ,column = 1)
-    check = "benilde"
+    check = "code"
     subject_number_Display.configure(text = "")
     units_number_Display.configure(text = "")
     general_Display.configure(text = "")
@@ -106,8 +105,7 @@ def Reset_Input():
 
 def About():
     root.maxsize(width = 280 ,height = 400)
-    lines = ['Created by:', '', 'Lance Salen', '12007621', 'BSBA-BIA', 'Computer Business Association']
-    tkinter.messagebox.showinfo("About" ,"This General Point Average (GPA) Calculator is a partnership project of the Benilde Central Student Government, and the Computer Business Association.")
+    lines = ['Created by:', '', 'Lance Salen', '12007621', 'BSBA-BIA']
     tkinter.messagebox.showinfo("About" ,"\n".join(lines))
     root.maxsize(width = 280 ,height = 270)
 
@@ -119,7 +117,7 @@ def Help():
     tkinter.messagebox.showinfo("Help" ,"If you had a wrong input of your subject, you can click the Undo Subject button.")
     tkinter.messagebox.showinfo("Help" ,"If you want to compute a new set of subjects, just click the Reset Input button and add your new subjects.")
     tkinter.messagebox.showinfo("Help" ,"CSBLIFE, CSBGRAD, NSTP-01, and NSTP-02 are not included.")
-    tkinter.messagebox.showinfo("Help" ,"Thank you! If you have any concerns, please email us at computerbusinessassociation @benilde.edu.ph.")
+    tkinter.messagebox.showinfo("Help" ,"Thank you! If you have any concerns, please email me at lancebert.salen@benilde.edu. ph")
     root.maxsize(width = 280 ,height = 270)
 
 def dl_requirements():
@@ -134,8 +132,7 @@ def dl_requirements():
 
 
 root = Tk()
-root.title("De La Salle-College of Saint Benilde General Point Average Calculator")
-root.iconphoto(False, PhotoImage(file='benilde.png'))
+root.title("General Point Average Calculator")
 
 
 number = StringVar()
@@ -145,7 +142,7 @@ subject_grade = IntVar()
 gradeList = []
 unitsList = []
 all_List = []
-Number_Points = {'4':4.0,'3.5':3.5,'3':3.0,'2.5':2.5,'2':2.0,'1.5':1.5,'1':1.0,'R':0.0,}
+Number_Points = {'4':4.0,'3.75':3.75,'3.5':3.5,'3.25':3.25,'3':3.0,'2.75':2.75,'2.5':2.5,'2.25':2.25,'2':2.0,'1.75':1.75,'1.5':1.5,'1.25':1.25,'1':1.0,'R':0.0,}
 
 
 high_Frame = Frame(root)
@@ -157,20 +154,22 @@ subject_grade_units.pack(side = TOP )
 subject_grade_LabelFrame = LabelFrame(subject_grade_units ,text = "Subject Grade")
 subject_grade_LabelFrame.pack(side = LEFT ,padx = 5)
 
-units_lblFrame = LabelFrame(subject_grade_units ,text = "      Number of Units      ")
+units_lblFrame = LabelFrame(subject_grade_units ,text = "                 Number of Units                 ")
 units_lblFrame.pack(side = RIGHT ,padx = 5)
 
 Label(subject_grade_LabelFrame ,text = "List:").grid(row =0)
 
 
-Number_Options = OptionMenu(subject_grade_LabelFrame ,number ,"4" ,"3.5" ,"3" ,"2.5" ,"2" ,"1.5" ,"1" ,"R")
+Number_Options = OptionMenu(subject_grade_LabelFrame ,number ,"4" ,"3.75","3.5","3.25" ,"3", "2.75", "2.5" ,"2.25", "2","1.75","1.5", "1.25" ,"1" ,"R")
 Number_Options.grid(row = 0 ,column = 1)
 
 Radiobutton(units_lblFrame ,text = "1" ,variable = units ,value = 1).pack(side = LEFT)
 Radiobutton(units_lblFrame ,text = "2" ,variable = units ,value = 2).pack(side = LEFT)
-units_RadioBtn = Radiobutton(units_lblFrame ,text = "3" ,variable = units ,value = 3) 
-Radiobutton(units_lblFrame ,text = "6" ,variable = units ,value = 6).pack(side = RIGHT)
-units_RadioBtn.pack(side = RIGHT)
+Radiobutton(units_lblFrame ,text = "3" ,variable = units ,value = 3).pack(side = LEFT)
+Radiobutton(units_lblFrame ,text = "4" ,variable = units ,value = 4).pack(side = LEFT)
+units_RadioBtn = Radiobutton(units_lblFrame ,text = "6" ,variable = units ,value = 6)
+Radiobutton(units_lblFrame ,text = "5" ,variable = units ,value = 5).pack(side = LEFT)
+units_RadioBtn.pack(side = LEFT)
 units_RadioBtn.select()
 
 gpa_grade_frame = Frame(high_Frame ,relief = FLAT)
